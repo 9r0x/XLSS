@@ -33,18 +33,18 @@ class PreprocessData:
 
         patches = []
         for i in range(0, height, patch_size[1]):
+            row = i // patch_size[1]
             for j in range(0, width, patch_size[0]):
-                patch = image.crop(
-                    (j, i, j + patch_size[0], i + patch_size[1]))
-                patches.append(patch)
+                col = j // patch_size[0]
+                patch = image.crop((j, i, j + patch_size[0], i + patch_size[1]))
+                patches.append((patch, row, col))
         return patches
 
     def save_patches(self, patches, output_directory, file_prefix):
         if not os.path.exists(output_directory):
             os.makedirs(output_directory)
-        for i, patch in enumerate(patches):
-            patch.save(
-                os.path.join(output_directory, f"{file_prefix}_{i:04d}.png"))
+        for patch, row, col in patches:
+            patch.save(os.path.join(output_directory, f"{file_prefix}_{row}_{col}.png"))
 
     def preprocess_image(self, image_path, patch_size, save_dir):
         image = self.load_image(image_path)

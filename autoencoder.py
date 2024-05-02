@@ -31,7 +31,7 @@ class SuperResolutionAutoencoder(Model):
         self.upsample2 = UpSampling2D()
         self.conv8 = Conv2D(64, (3, 3), kernel_initializer='he_uniform', activity_regularizer=tf.keras.regularizers.l1(10e-10), padding='same', activation='relu')
         self.conv9 = Conv2D(64, (3, 3), kernel_initializer='he_uniform', activity_regularizer=tf.keras.regularizers.l1(10e-10), padding='same', activation='relu')
-
+        self.upsample3 = UpSampling2D(size=(2, 2))
         self.conv10 = Conv2D(3, (3, 3), kernel_initializer='he_uniform', activity_regularizer=tf.keras.regularizers.l1(10e-10), padding='same', activation='relu')
 
     def call(self, inputs):
@@ -58,6 +58,7 @@ class SuperResolutionAutoencoder(Model):
         x14 = self.conv9(x13)
         
         x15 = Add()([x14, x2])
+        x15 = self.upsample3(x15)
         
         decoded = self.conv10(x15)
         return decoded

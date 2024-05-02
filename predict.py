@@ -79,6 +79,7 @@ def predict(data_path, model_path, out_path):
 
 
     # load model
+    # model = tf.keras.models.load_model(model_path)
     model = load_model(model_path)
     
     # make predictions
@@ -92,8 +93,8 @@ def predict(data_path, model_path, out_path):
 if __name__ == "__main__":
 
     data_path = './data/minibatch'
-    model_path = 'MODEL_PATH'
-    output_directory = 'OUTPUT_DIRECTORY'
+    model_path = "super_resolution_autoencoder"
+    output_directory = './predictions'
     
     out_paths = predict(data_path, model_path, output_directory)
 
