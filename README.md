@@ -37,5 +37,7 @@ python3 xlss.py ./data/minibatch/test ./data/minibatch/test_out
 ```
 
 # Video Processing
-> Turning video into frames: ffmpeg -i pivot.mp4  -r 10 -s 800x400  frame%03d.png 
-> Zipping frames into video: ffmpeg -r 10 -f image2  -i frame%03d.png -vcodec libx264  pivot_hr_x2.mp4
+
+- Turning video into frames: ffmpeg -i pivot.mp4  -r 10 -s 800x400  frame%03d.png
+
+- Zipping frames into video: ffmpeg -r 10 -f image2  -i frame%03d.png -vcodec libx264  pivot_hr_x2.mp4
