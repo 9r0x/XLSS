@@ -17,6 +17,11 @@ model = tf.keras.Sequential([
     layers.Conv2D(16, 3, padding='same'),
     layers.ReLU(),
     layers.Conv2DTranspose(16, 2, strides=2, padding='same'),
+    layers.Conv2D(8, 3, padding='same'),
+    layers.ReLU(),
+    layers.Conv2D(8, 3, padding='same'),
+    layers.ReLU(),
+    layers.Conv2DTranspose(8, 2, strides=2, padding='same'),
     layers.Conv2D(3, 3, strides=2, padding='same'),
     layers.ReLU()
 ])
@@ -25,7 +30,7 @@ model = tf.keras.Sequential([
 def prepare_ds(lr_folder,
                hr_folder,
                train_test_split=0.8,
-               batch_size=32,
+               batch_size=128,
                seed=42):
 
     def load_and_preprocess_image(x_path, y_path):
@@ -75,7 +80,7 @@ if __name__ == "__main__":
         print("Usage: python train.py <lr_dir> <hr_dir>")
         sys.exit(1)
 
-    INPUT_SHAPE = (None, 50, 50, 3)
+    INPUT_SHAPE = (None, 25, 25, 3)
     NUM_EPOCHS = 5
 
     train_ds, test_ds = prepare_ds(sys.argv[1], sys.argv[2])

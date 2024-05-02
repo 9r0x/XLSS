@@ -25,14 +25,14 @@ if __name__ == "__main__":
     temp_dir = tempfile.mkdtemp()
     model = tf.keras.models.load_model('xlss.keras')
 
-    ImageProcessor(ipath, temp_dir, 50, None)()
+    ImageProcessor(ipath, temp_dir, 25, None)()
     test_patches = os.listdir(temp_dir)
     test_patches = [os.path.join(temp_dir, file) for file in test_patches]
 
     test_ds = tf.data.Dataset.from_tensor_slices(test_patches)
     test_ds = test_ds.map(load_image,
                           num_parallel_calls=tf.data.experimental.AUTOTUNE)
-    test_ds = test_ds.batch(64)
+    test_ds = test_ds.batch(128)
     pred = model.predict(test_ds)
     pred = np.clip(pred, 0, 1)
 

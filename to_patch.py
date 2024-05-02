@@ -11,7 +11,7 @@ class ImageProcessor:
         self.opath = opath
         self.size = size
         self.num_samples = num_samples
-        self.suffix = 'x2'
+        self.suffix = ['x2', 'x3', 'x4']
 
         if not os.path.exists(self.opath):
             os.makedirs(self.opath)
@@ -33,7 +33,8 @@ class ImageProcessor:
     def preprocess_image(self, image_path):
         image = Image.open(image_path)
         prefix = os.path.splitext(os.path.basename(image_path))[0]
-        prefix = prefix.replace(self.suffix, '')
+        for s in self.suffix:
+            prefix = prefix.replace(s, '')
 
         patches = self.crop_to_patches(image)
         for row, row_patches in patches.items():
